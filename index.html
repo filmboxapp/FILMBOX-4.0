@@ -216,6 +216,45 @@ main{max-width:1500px;margin:auto}
 .list-panel{display:none}
 .list-panel.active{display:block}
 
+/* === FIX: Quitar el óvalo azul/gris al hacer clic en los botones === */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a {
+  outline: none !important;
+  -webkit-focus-ring-color: transparent;
+}
+
+button:focus, a:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Específico para tu navegación inferior flotante */
+.bottom-nav {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-btn {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* Quita el borde también cuando se mantiene presionado */
+.nav-btn:active {
+  background: rgba(255,255,255,.035) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Mantiene accesibilidad solo para teclado (Tab) */
+.nav-btn:focus-visible {
+  outline: 2px solid rgba(229,9,20,.6) !important;
+}
+  
 </style>
 </head>
 <body>
