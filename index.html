@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta name="google-site-verification" content="MVta7fYIufFXDOm8V4xosjfixFWA8pgXkMYCqivCvJE" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#080808">
+  <meta name="description" content="FILMBOX — catálogo de películas y series.">
+  <title>FILMBOX 4.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --red:#e50914;--red2:#ff2632;--bg:#070707;--panel:#101010;--panel2:#171717;
+  --text:#f7f7f7;--muted:#999;--line:rgba(255,255,255,.08);
+  --radius:14px;--nav:70px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 50% -10%,#241014 0,#0a0a0a 32%,#070707 70%);color:var(--text);font-family:Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input{font:inherit}
+button{color:inherit}
+a{text-decoration:none;color:inherit}
+.hidden{display:none!important}
+100%{transform:translateX(330%)}}
+
+/* Header */
+header{position:sticky;top:0;z-index:1000;background:rgba(7,7,7,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.header-inner{max-width:1500px;margin:auto;padding:15px 22px;display:flex;align-items:center;gap:22px}
+.logo{font-size:25px;font-weight:800;letter-spacing:-1.3px;white-space:nowrap}
+.logo span{color:var(--red)}
+.search{position:relative;flex:1;max-width:650px;margin:auto}
+.search input{width:100%;height:44px;border:1px solid var(--line);border-radius:13px;background:#141414;color:#fff;outline:0;padding:0 44px 0 43px;transition:.2s}
+.search input:focus{border-color:rgba(229,9,20,.7);box-shadow:0 0 0 3px rgba(229,9,20,.12)}
+.search-icon{position:absolute;left:15px;top:12px;color:#999;font-size:18px}
+.clear-search{position:absolute;right:12px;top:8px;width:28px;height:28px;border:0;background:transparent;color:#aaa;cursor:pointer}
+.header-actions{display:flex;gap:8px}
+.icon-btn{width:42px;height:42px;border:1px solid var(--line);background:#121212;border-radius:12px;display:grid;place-items:center;cursor:pointer}
+.icon-btn:hover{border-color:#333;background:#1a1a1a}
+
+/* Hero */
+main{max-width:1500px;margin:auto}
+.hero{margin:22px 22px 0;min-height:300px;border:1px solid var(--line);border-radius:22px;overflow:hidden;position:relative;background:linear-gradient(100deg,#161616 0%,#0e0e0e 55%,#14090a 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 45%,rgba(229,9,20,.22),transparent 34%),linear-gradient(90deg,rgba(0,0,0,.08),rgba(0,0,0,.6))}
+.hero-content{position:relative;z-index:2;max-width:650px;padding:54px 52px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:#ff5a61;margin-bottom:13px}
+.hero h1{font-size:clamp(34px,5vw,60px);line-height:.98;letter-spacing:-2.5px;margin:0 0 16px}
+.hero p{color:#b7b7b7;line-height:1.6;margin:0 0 25px;max-width:560px}
+.hero-btn{border:0;border-radius:11px;background:#fff;color:#080808;font-weight:800;padding:12px 18px;cursor:pointer}
+.hero-btn:hover{transform:translateY(-1px)}
+
+.notice{margin:16px 22px 0;padding:13px 16px;border:1px solid var(--line);background:rgba(18,18,18,.75);border-radius:13px;color:#cfcfcf;font-size:13px}
+.notice b{color:#fff}.notice-dot{display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;margin-right:8px}
+
+/* Navigation */
+.tabs{display:flex;gap:8px;overflow:auto;padding:18px 22px 5px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:1px solid var(--line);background:#111;color:#aaa;border-radius:10px;padding:9px 14px;cursor:pointer;white-space:nowrap;font-size:13px;font-weight:700}
+.tab.active{background:#fff;color:#090909;border-color:#fff}
+
+/* Sections */
+.section{padding:26px 22px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:14px}
+.section-title{font-size:20px;font-weight:800;letter-spacing:-.5px}
+.section-sub{font-size:12px;color:#777;margin-top:4px}
+.count{font-size:12px;color:#777}
+
+/* Cards */
+.movies{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px} 
+.movie-card{position:relative;min-width:0;cursor:pointer;color:inherit}
+.movie-card:hover .poster-wrap{transform:translateY(-5px);box-shadow:0 15px 35px rgba(0,0,0,.5);border-color:rgba(229,9,20,.38)}
+.poster-wrap{position:relative;width:100%;aspect-ratio:2/3;background:#141414;background-repeat:no-repeat;background-position:center;background-size:contain;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.055);box-shadow:0 8px 22px rgba(0,0,0,.28);transition:transform .22s,box-shadow .22s,border-color .22s}
+.card-info{position:static;padding:9px 3px 2px}
+.card-title{font-size:12px;font-weight:700;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.quality{position:absolute;top:9px;right:9px;z-index:4;padding:4px 7px;border-radius:6px;background:rgba(229,9,20,.94);font-size:9px;font-weight:800}
+
+/* Empty */
+.empty{padding:55px 20px;text-align:center;color:#777;border:1px dashed #2a2a2a;border-radius:16px}
+.empty strong{display:block;color:#ddd;margin-bottom:6px}
+
+/* Bottom navigation */
+.bottom-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:1200;display:flex;gap:4px;padding:6px;background:rgba(17,17,17,.92);border:1px solid var(--line);backdrop-filter:blur(18px);border-radius:17px;box-shadow:0 12px 40px rgba(0,0,0,.45)}
+.nav-btn{border:0;background:transparent;color:#888;border-radius:12px;min-width:62px;padding:7px 9px;cursor:pointer;font-size:10px;font-weight:700}
+.nav-btn .ico{display:block;font-size:18px;margin-bottom:2px}.nav-btn.active{background:#242424;color:#fff}.nav-btn.active .ico{color:#ff4b53}
+
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);z-index:2000;display:none;padding:20px}
+.modal-backdrop.show{display:grid;place-items:center}
+.modal{width:min(520px,100%);max-height:85vh;overflow:auto;background:#111;border:1px solid #292929;border-radius:20px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.7)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.modal h2{font-size:21px;margin:0}.close{border:0;background:#222;border-radius:9px;width:34px;height:34px;cursor:pointer}
+.notice-item{padding:14px 0;border-bottom:1px solid var(--line)}.notice-item:last-child{border:0}
+.notice-item b{display:block;margin-bottom:5px}.notice-item span{color:#999;font-size:13px;line-height:1.5}
+
+/* Desktop */
+@media(min-width:600px){
+  .movies{grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+}
+@media(min-width:900px){
+  .movies{grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
+  .hero{min-height:360px}.hero-content{padding:70px 65px}
+}
+@media(max-width:599px){
+  .header-inner{padding:11px 13px;gap:10px}.logo{height:30px}.logo img{width:125px;max-height:30px}
+  .header-actions .icon-btn{display:none}.header-actions .icon-btn:last-child{display:grid}
+  .search{max-width:none}.search input{height:40px;font-size:12px}
+  .hero{margin:12px 12px 0;min-height:255px;border-radius:17px}.hero-content{padding:38px 25px}.hero h1{font-size:38px}
+  .hero p{font-size:12px}.notice{margin:11px 12px 0;font-size:11px}
+  .tabs{padding-left:12px;padding-right:12px}.section{padding:21px 12px 0}.section-title{font-size:17px}
+  .bottom-nav{bottom:max(9px,env(safe-area-inset-bottom));width:calc(100% - 24px);justify-content:space-around}
+  .nav-btn{flex:1;min-width:0}.movies{gap:9px}
+  body{padding-bottom:86px}
+}
+
+/* FILMBOX 4.0 — floating navigation + separated views */
+.header-spacer{flex:1}
+.big-search svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.view{display:none;animation:viewIn .28s ease both}.view.active{display:block}
+@keyframes viewIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.page-head{padding:48px 22px 5px;max-width:900px}
+.page-head h2{font-size:clamp(34px,5vw,52px);letter-spacing:-2px;margin:0 0 10px}
+.page-head p{color:#929292;line-height:1.6;margin:0;max-width:600px}
+.search-page{padding:20px 22px 120px}
+.big-search{position:relative;max-width:850px;margin-bottom:28px}
+.big-search input{width:100%;height:58px;border:1px solid #292929;border-radius:15px;background:#121212;color:#fff;outline:0;padding:0 52px;font-size:16px;transition:.2s}
+.big-search input:focus{border-color:rgba(229,9,20,.72);box-shadow:0 0 0 4px rgba(229,9,20,.10)}
+.big-search svg{position:absolute;left:18px;top:19px;color:#888}
+.big-search .clear-search{right:12px;top:14px}
+.search-results-head{max-width:1500px}
+.search-empty{min-height:220px;border:1px dashed #2a2a2a;border-radius:18px;display:grid;place-items:center;align-content:center;gap:7px;color:#777;text-align:center;padding:30px}
+.search-empty strong{color:#ddd;font-size:15px}.search-empty-icon{width:48px;height:48px;border-radius:15px;background:#151515;display:grid;place-items:center;margin-bottom:7px}
+.search-empty-icon svg{width:24px;height:24px;fill:none;stroke:#777;stroke-width:1.7;stroke-linecap:round}
+.compact-section{padding-top:20px}
+.history-section{padding-bottom:130px}
+.clear-history{border:0;background:transparent;color:#888;font-size:11px;cursor:pointer}.clear-history:hover{color:#fff}
+.news-list{padding:24px 22px 130px;display:grid;gap:12px;max-width:950px}
+.news-card{display:flex;gap:16px;padding:20px;border:1px solid var(--line);border-radius:17px;background:#101010}
+.news-card.featured{background:linear-gradient(120deg,#161616,#100b0c);border-color:rgba(229,9,20,.2)}
+.news-icon{width:45px;height:45px;min-width:45px;border-radius:13px;background:#1b1b1b;display:grid;place-items:center;color:#ddd}
+.news-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.news-card span{font-size:9px;letter-spacing:1.5px;color:#d94b52;font-weight:800}
+.news-card h3{margin:5px 0 6px;font-size:16px}.news-card p{margin:0;color:#8f8f8f;font-size:12px;line-height:1.55}
+
+/* Crisp inline SVGs and floating pill matching the reference */
+.bottom-nav{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:1200;
+  width:min(720px,calc(100% - 28px));height:82px;padding:7px 10px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:3px;
+  background:rgba(18,19,24,.88);border:1px solid rgba(255,255,255,.10);
+  border-radius:43px;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 18px 55px rgba(0,0,0,.55),0 3px 15px rgba(0,0,0,.28)}
+.nav-btn{border:0;background:transparent;color:#8f919b;border-radius:35px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;cursor:pointer;font-size:12px;font-weight:600;transition:.2s}
+.nav-btn svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:.2s}
+.nav-btn.active{color:#fff;background:rgba(255,255,255,.035)}
+.nav-btn.active svg{filter:drop-shadow(0 0 6px rgba(255,255,255,.12))}
+.nav-btn:hover{color:#fff;background:rgba(255,255,255,.045)}
+@media(max-width:599px){
+  body{padding-bottom:110px}
+  .header-inner{padding:12px 14px}
+  .header-bell{width:40px;height:40px}
+  .hero{margin:12px 12px 0}
+  .notice{margin-left:12px;margin-right:12px}
+  .page-head{padding:34px 14px 5px}
+  .search-page{padding:18px 14px 110px}
+  .section{padding-left:14px;padding-right:14px}
+  .news-list{padding:20px 14px 110px}
+  .bottom-nav{bottom:max(12px,env(safe-area-inset-bottom));height:78px;width:calc(100% - 24px);border-radius:40px;padding:6px}
+  .nav-btn{font-size:10px;gap:5px}.nav-btn svg{width:25px;height:25px}
+}
+
+
+/* CAMBIOS SOLICITADOS: vistas separadas + navbar flotante SVG */
+.view{display:none}.view.active{display:block}
+.page-section{padding-bottom:115px}
+.search-page-box{position:relative;margin:0 0 18px;max-width:650px}
+.search-page-box input{width:100%;height:46px;border:1px solid var(--line);border-radius:13px;background:#141414;color:#fff;outline:0;padding:0 44px 0 43px}
+.search-page-box>span{position:absolute;left:15px;top:9px;color:#999;font-size:20px}
+.search-page-box .clear-search{position:absolute;right:10px;top:7px;width:30px;height:30px;border:0;background:transparent;color:#aaa;cursor:pointer}
+.list-history-head{margin-top:32px}.clear-history{border:0;background:transparent;color:#888;font-size:11px;cursor:pointer}
+.news-list{display:grid;gap:12px;max-width:700px}.news-item{padding:16px;border:1px solid var(--line);border-radius:13px;background:#141414}
+.news-item b{display:block;margin-bottom:5px}.news-item span{color:#999;font-size:12px;line-height:1.5}
+.bottom-nav{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:1200;width:min(720px,calc(100% - 28px));height:82px;padding:7px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:rgba(18,19,24,.9);border:1px solid rgba(255,255,255,.1);border-radius:43px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 18px 55px rgba(0,0,0,.5)}
+.nav-btn{border:0;background:transparent;color:#999;border-radius:35px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;font-size:11px;font-weight:600}
+.nav-btn svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.nav-btn.active{color:#fff;background:rgba(255,255,255,.035)}
+@media(max-width:599px){body{padding-bottom:105px}.page-section{padding-left:12px;padding-right:12px}.bottom-nav{bottom:max(12px,env(safe-area-inset-bottom));height:78px;width:calc(100% - 24px);border-radius:40px;padding:6px}.nav-btn{font-size:10px}.nav-btn svg{width:25px;height:25px}}
+
+
+/* Iconos SVG para todos los controles visuales */
+.inline-icon{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.search-page-box .search-icon{position:absolute;left:14px;top:12px;width:22px;height:22px;color:#999;font-size:0;display:grid;place-items:center}
+.search-page-box .search-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.search-page-box input{-webkit-appearance:none;appearance:none}
+.search-page-box input::-webkit-search-cancel-button,.search-page-box input::-webkit-search-decoration{-webkit-appearance:none;appearance:none}
+.search-page-box .clear-search{position:absolute;right:9px;top:8px;width:30px;height:30px;padding:0;border:0;border-radius:50%;background:transparent;color:#aaa;cursor:pointer;display:none;place-items:center}
+.search-page-box .clear-search.visible{display:grid}
+.search-page-box .clear-search:hover{color:#fff;background:rgba(255,255,255,.06)}
+.search-page-box .clear-search svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.section-title{display:flex;align-items:center;gap:8px}
+.section-icon{width:19px;height:19px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.close{display:grid;place-items:center}
+.close svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+
+/* Mi Lista: pestañas Favoritos / Historial */
+.list-tabs{display:flex;gap:8px;margin:18px 0 16px;padding:4px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);border-radius:14px}
+.list-tab{flex:1;border:0;background:transparent;color:rgba(255,255,255,.58);padding:10px 14px;border-radius:10px;font:600 13px inherit;cursor:pointer;transition:.2s}
+.list-tab.active{background:rgba(255,255,255,.1);color:#fff}
+.list-panel{display:none}
+.list-panel.active{display:block}
+
+</style>
+</head>
+<body>
+
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#inicio" aria-label="FILMBOX"><img src="FILMBOXLOGO.JPG" alt="FILMBOX"></a>
+    <div class="header-spacer"></div>
+  </div>
+</header>
+
+<main>
+  <section class="view active" id="view-home">
+
+    <div class="notice"><span class="notice-dot"></span><b>Novedad:</b> FILMBOX 4.0 ya está disponible con nueva interfaz y funciones personales.</div>
+    <section class="section" id="catalogSection">
+      <div class="section-head"><div><div class="section-title">Catálogo</div><div class="section-sub">Descubre contenido disponible</div></div><div class="count" id="homeCount"></div></div>
+      <div class="movies" id="movieList"></div>
+    </section>
+  </section>
+
+  <section class="view" id="view-search">
+    <section class="section page-section">
+      <div class="section-head"><div><div class="section-title">Buscar</div><div class="section-sub">Encuentra películas o series por nombre</div></div></div>
+      <div class="search-page-box"><span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><input id="searchPage" type="search" autocomplete="off" placeholder="Buscar películas o series..."><button class="clear-search" id="clearSearch" type="button" aria-label="Limpiar búsqueda"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="section-head"><div><div class="section-title">Resultados</div><div class="section-sub" id="searchSub">Escribe algo para buscar</div></div><div class="count" id="searchCount"></div></div>
+      <div class="movies" id="searchResults"></div>
+    </section>
+  </section>
+
+  <section class="view" id="view-list">
+    <section class="section page-section">
+      <div class="section-head"><div><div class="section-title">Mi Lista</div><div class="section-sub">Tus favoritos e historial en este dispositivo</div></div></div>
+
+      <div class="list-tabs" role="tablist" aria-label="Mi Lista">
+        <button class="list-tab active" id="tabFavorites" role="tab" aria-selected="true" data-panel="favoritesPanel">Favoritos</button>
+        <button class="list-tab" id="tabHistory" role="tab" aria-selected="false" data-panel="historyPanel">Historial</button>
+      </div>
+
+      <div class="list-panel active" id="favoritesPanel">
+        <div class="section-head"><div><div class="section-title">Favoritos</div><div class="section-sub">Tus títulos guardados</div></div><div class="count" id="favCount"></div></div>
+        <div class="movies" id="favoritesGrid"></div>
+      </div>
+
+      <div class="list-panel" id="historyPanel">
+        <div class="section-head"><div><div class="section-title"><svg class="section-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/><path d="M4 12a8 8 0 0 1 2-5.7"/></svg> Historial</div><div class="section-sub">Contenido abierto recientemente</div></div><button class="clear-history" id="clearHistory">Borrar</button></div>
+        <div class="movies" id="historyGrid"></div>
+      </div>
+    </section>
+  </section>
+
+  <section class="view" id="view-news">
+    <section class="section page-section">
+      <div class="section-head"><div><div class="section-title">Novedades</div><div class="section-sub">Actualizaciones de FILMBOX</div></div></div>
+      <div class="news-list">
+        <div class="news-item"><b>FILMBOX 4.0</b><span>Nueva interfaz, navegación flotante, búsqueda independiente, favoritos e historial.</span></div>
+        <div class="news-item"><b>Mi Lista</b><span>Guarda tus títulos favoritos en este dispositivo.</span></div>
+        <div class="news-item"><b>Rendimiento</b><span>La carga del catálogo y de los pósters está optimizada.</span></div>
+      </div>
+    </section>
+  </section>
+</main>
+
+<div class="modal-backdrop" id="noticeModal">
+  <div class="modal">
+    <div class="modal-head"><h2>Avisos</h2><button class="close" data-close="noticeModal" aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="notice-item"><b>FILMBOX 4.0</b><span>Nueva interfaz, navegación renovada, favoritos, historial, búsqueda mejorada y carga con skeleton.</span></div>
+    <div class="notice-item"><b>Tu información permanece en este dispositivo</b><span>Favoritos e historial se guardan localmente en tu navegador mediante almacenamiento del sitio.</span></div>
+    <div class="notice-item"><b>Catálogo</b><span>El contenido mostrado depende del catálogo disponible en Peliculas.json.</span></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="listModal">
+  <div class="modal">
+    <div class="modal-head"><h2>Mi lista</h2><button class="close" data-close="listModal" aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div id="listModalContent"></div>
+  </div>
+</div>
+
+<nav class="bottom-nav" aria-label="Navegación principal">
+  <button class="nav-btn active" data-view="home"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Inicio</span></button>
+  <button class="nav-btn" data-view="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>Buscar</span></button>
+  <button class="nav-btn" data-view="list"><svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v17l-8-4-8 4V5a2 2 0 0 1 2-2z"/></svg><span>Mi Lista</span></button>
+  <button class="nav-btn" data-view="news"><svg viewBox="0 0 24 24"><path d="M4 4 20 12 4 20l4-8z"/><path d="M8 12h8"/></svg><span>Novedades</span></button>
+</nav>
+
+<script>
+(() => {
+  const movieList=document.getElementById('movieList'),searchGrid=document.getElementById('searchResults'),favoritesGrid=document.getElementById('favoritesGrid'),historyGrid=document.getElementById('historyGrid'),searchInput=document.getElementById('searchPage');
+  const clearSearch=document.getElementById('clearSearch');
+  const KEYS={favorites:'filmbox_favorites_v4',history:'filmbox_history_v4'};let moviesData=[];
+  const read=k=>{try{return JSON.parse(localStorage.getItem(k)||'[]')}catch{return[]}},write=(k,v)=>localStorage.setItem(k,JSON.stringify(v)),getId=m=>m.link||m.title,favorites=()=>read(KEYS.favorites),historyItems=()=>read(KEYS.history);
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  function addHistory(m){let l=historyItems().filter(x=>x.id!==getId(m));l.unshift({id:getId(m),title:m.title,poster:m.poster,link:m.link,quality:m.quality||'HD',time:Date.now()});write(KEYS.history,l.slice(0,40))}
+  function card(m){const a=document.createElement('a');a.className='movie-card';a.href=m.link||'#';a.addEventListener('click',()=>addHistory(m));const p=document.createElement('div');p.className='poster-wrap';p.style.backgroundImage=`url('${String(m.poster||'').replace(/'/g,"%27")}')`;const q=document.createElement('span');q.className='quality';q.textContent=m.quality||'HD';p.append(q);const i=document.createElement('div');i.className='card-info';i.innerHTML=`<div class="card-title">${esc(m.title||'Sin título')}</div>`;a.append(p,i);return a}
+  function fill(t,items){t.innerHTML='';if(!items.length){t.innerHTML='<div class="empty" style="grid-column:1/-1"><strong>No hay contenido aquí todavía</strong><span>Cuando agregues elementos, aparecerán en este apartado.</span></div>';return}items.forEach(m=>t.appendChild(card(m)))}
+  function renderHome(){movieList.innerHTML='';moviesData.forEach(m=>movieList.appendChild(card(m)));document.getElementById('homeCount').textContent=`${moviesData.length} ${moviesData.length===1?'elemento':'elementos'}`}
+  function renderSearch(){const q=searchInput.value.trim().toLowerCase(),r=q?moviesData.filter(m=>String(m.title||'').toLowerCase().includes(q)):[];document.getElementById('searchSub').textContent=q?`Coincidencias para “${q}”`:'Escribe algo para buscar';document.getElementById('searchCount').textContent=q?`${r.length} ${r.length===1?'resultado':'resultados'}`:'';fill(searchGrid,r)}
+  function renderMovies(list){const q=searchInput.value.toLowerCase();document.getElementById('searchSub').textContent=q?`Coincidencias para “${q}”`:'Escribe algo para buscar';document.getElementById('searchCount').textContent=q?`${list.length} ${list.length===1?'resultado':'resultados'}`:'';fill(searchGrid,list)}
+  function renderList(){const fs=new Set(favorites()),f=moviesData.filter(m=>fs.has(getId(m))),map=new Map(moviesData.map(m=>[getId(m),m])),h=historyItems().map(x=>map.get(x.id)).filter(Boolean);document.getElementById('favCount').textContent=`${f.length}`;fill(favoritesGrid,f);fill(historyGrid,h)}
+  function renderAll(){renderHome();renderSearch();renderList()}
+  function switchView(n){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+n));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===n));window.scrollTo({top:0,behavior:'smooth'});}
+  document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
+  
+// Lógica de búsqueda e historial (Tu código original)
+let isSearching = false;
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase();
+  clearSearch.classList.toggle('visible', q.length > 0);
+
+  if (q.length > 0 && !isSearching) {
+    history.pushState({ search: true }, '');
+    isSearching = true;
+  }
+
+  if (q.length === 0) {
+    isSearching = false;
+    searchInput.blur();
+  }
+
+  const filtered = moviesData.filter(movie =>
+    movie.title.toLowerCase().includes(q)
+  );
+
+  renderMovies(filtered);
+});
+
+window.addEventListener('popstate', () => {
+  if (isSearching || searchInput.value !== '') {
+    searchInput.value = '';
+    clearSearch.classList.remove('visible');
+    renderMovies(moviesData);
+    isSearching = false;
+    searchInput.blur();
+    history.pushState({ search: false }, '');
+  }
+});
+  document.querySelectorAll('.list-tab').forEach(tab=>tab.addEventListener('click',()=>{
+    document.querySelectorAll('.list-tab').forEach(t=>{t.classList.toggle('active',t===tab);t.setAttribute('aria-selected',t===tab?'true':'false')});
+    document.querySelectorAll('.list-panel').forEach(p=>p.classList.toggle('active',p.id===tab.dataset.panel));
+  }));
+  document.getElementById('clearHistory').addEventListener('click',()=>{write(KEYS.history,[]);renderList()});
+  clearSearch.addEventListener('click',()=>{searchInput.value='';clearSearch.classList.remove('visible');searchInput.dispatchEvent(new Event('input'));});
+  fetch('Peliculas.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No se pudo cargar Peliculas.json');return r.json()}).then(d=>{moviesData=Array.isArray(d)?d:[];renderAll()}).catch(e=>{const x='<div class="empty" style="grid-column:1/-1"><strong>No se pudo cargar el catálogo</strong><span>Revisa que Peliculas.json esté en la raíz del sitio.</span></div>';movieList.innerHTML=x;searchGrid.innerHTML=x;console.error(e)})
+})();
+</script>
+</body>
+</html>
